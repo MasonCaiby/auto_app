@@ -18,10 +18,14 @@ Now change the `spiel_auto.txt` file and `spiel_manual.txt` to whatever you want
 
 If you want, you can watch a video of it chugging away: [here](https://vimeo.com/282698022).
 
+[<img src="https://raw.githubusercontent.com/MasonCaiby/auto_app/master/pic.png">](https://vimeo.com/282698022)
+
+
+
 ## What it does
 
 So this script uses Selenium. It first opens a new driver instance (called browser)and navigates to the Angel List login page. It then uses the credentials it pulled from your .csv file and logins into the page. Now it navigates the the URL you saved in your html.txt file. The url should have all relevant filters BE SELECTIVE- Angel list has a limit on the number of open job apps you can have. Then it steps through all `_jm` classes and check to see if it has 'applicants last week' in its text. If so, it clicks on the `<div>` to expand it, clicks on Apply Now, grabs the recruiters name, and puts a message in the `<textarea>` box. Then it clicks Submit or Send or Apply or whatever and moves on to the next one.
 
 Easily the hardest part of all this was figuring out the page structure and how Selenium interacted with it - I've never used Selenium before and I do more Data Science than Web Development. But I learned a lot and I think it works pretty well.
 
-I hope you don't find yourself on the job market anytime soon, but if you do, maybe you can use this to help with your search. I'd recommend putting it in a [schedule](https://github.com/dbader/schedule) function. 
+I hope you don't find yourself on the job market anytime soon, but if you do, maybe you can use this to help with your search. I'd recommend putting it in a [schedule](https://github.com/dbader/schedule) function.
