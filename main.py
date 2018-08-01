@@ -20,7 +20,9 @@ angel_password_input.send_keys(angel_password_cred)
 angel_password_input.submit()
 
 # navigate to the jobs page this loads the relevant filters
-browser.get('https://angel.co/jobs#find/f!%7B%22roles%22%3A%5B%22Data%20Scientist%22%5D%2C%22locations%22%3A%5B%221621-Boulder%2C%20CO%22%5D%2C%22remote%22%3Atrue%2C%22types%22%3A%5B%22full-time%22%2C%22contract%22%2C%22internship%22%5D%7D')
+with open('html.txt', 'r') as html_file:
+    filtered_html = html_file.read()
+browser.get(filtered_html)
 
 # #TODO: open the filters drop down and select the filters I want.
 """select relevant filters. Angel uses and/or filters it appears, so
