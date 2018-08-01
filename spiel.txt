@@ -1,0 +1,8 @@
+I have extensive experience with Python, Machine Learning, Data Science, and Data analysis.
+
+I excelled in all aspects of CU’s Economics program’s data analysis projects. While working at AlsoEnergy I created a report automation tool that decreased our reporting process from a week to a few hours and mitigated poor customer relations. I then went to Galvanize’s Data Science program to further develop my analytic toolkit; this program has improved my ability to analyze data and automate processes. My experience with analysis, data, and leadership combined with my passion for learning, business improvement, and problem-solving make me a perfect fit for your position.
+
+This application was submitted through a script I wrote (auto_app) which can be found, with some other projects, on my Github (https://github.com/MasonCaiby). I would love to discuss what I can bring further, please email me at maxwell.caudle@gmail.com.
+
+Thanks,
+Max
