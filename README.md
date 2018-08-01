@@ -1,4 +1,4 @@
-This project is an attempt to streamline / automate the job search process. I am automating applying to job on [Angel](https://angel.co/). I'm going to use Selenium for this, it will open a page in the background and navigate through it. This is going to be a 2 part README, partially so you can get it working, and partially so you can see how the code works - which I guess is the point of all READMEs.
+This project is an attempt to streamline / automate the job search process. I am automating applying to job on [Angel](https://angel.co/). I'm going to use Selenium for this, it will open a page in the background and navigate through it. This is going to be a 2 part README, partially so you can get it working, and partially so you can see how the code works - which I guess is the point of all READMEs. You cannot click around on your screen while this runs.
 
 ## Setup
 

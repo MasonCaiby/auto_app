@@ -5,6 +5,17 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 
 def get_files():
+    ''' DOCSTRING
+        This gets the info from the 3 files you need, and returns it. It's fine.
+        ---------
+        ARGUMENTS
+        None
+        ---------
+        RETURNS
+        spiel_auto: The A in you AB testing cover letter
+        spiel_manual: The B in you AB testing cover letter
+        filtered_html: The URL for the filtered job results page
+    '''
     # get the spiel_auto text
     with open('spiel_auto.txt', 'r') as spiel_file:
         spiel_auto = spiel_file.read()
@@ -21,6 +32,17 @@ def get_files():
 
 
 def get_creds():
+    ''' DOCSTRING
+        This pulls your credentials form the angel_creds.csv file. Contain your
+        excitment please.
+        ---------
+        ARGUMENTS
+        None
+        ---------
+        RETURNS
+        angel_email_cred: the login email
+        angel_password_cred: the login password
+    '''
     # get login creds
     angel_creds = np.genfromtxt('angel_creds.csv', delimiter=',', dtype=str)
     angel_email_cred = angel_creds[0]
@@ -31,6 +53,18 @@ def get_creds():
 
 def get_broswer_and_login(angel_email_cred, angel_password_cred,
                           filtered_html):
+    ''' DOCSTRING
+        Creates a browser instance and logins to Angel List. It then navigates
+        to the filtered jobs page you saved in html.txt. It's ok.
+        ---------
+        ARGUMENTS
+        angel_email_cred: the login email
+        angel_password_cred: the login password
+        filtered_html: the html you want to naviagte to for filtered jobs
+        ---------
+        RETURNS
+        browser: the Selenium Web Driver object
+    '''
     # create browser object, navigate to login
     browser = webdriver.Chrome()
     browser.get('https://angel.co/login')
@@ -59,6 +93,15 @@ match filtering I'll leave any pre-loaded ones on"""
 
 
 def scroll_through_page(browser):
+    ''' DOCSTRING
+        This just scrolls to the bottom of the page. I found it on S.O.
+        ---------
+        ARGUMENTS
+        browser: a Web Driver Object
+        ---------
+        RETURNS
+        None
+    '''
     # scroll to bottom of page | Load full page
     SCROLL_PAUSE_TIME = 1
     # Get scroll height
@@ -77,9 +120,23 @@ def scroll_through_page(browser):
 
 
 def apply_to_job(apply_now, spiel, browser):
+    ''' DOCSTRING
+        This applies to a single job, located in a <div class="... _jm">
+        container. It clicks on the apply now button, finds the recruiters name,
+        types the spiel, then applies to the job. The class names are obnoxious.
+        I'm sorry.
+        ---------
+        ARGUMENTS
+        apply_now: the apply now button it needs to click
+        spiel: the cover letter (sans name) you will send to this company
+        browser: the web driver object
+        ---------
+        RETURNS
+        recruiter_name: the name of the recruiter you sent the letter to
+    '''
     # open application window
     apply_now.click()
-    time.sleep(3)
+    time.sleep(3) #wait for window to open
 
     # get recruiter's name
     recruiting_contact = browser.find_element_by_class_name('recruiting-contact')
@@ -88,26 +145,46 @@ def apply_to_job(apply_now, spiel, browser):
     if len(recruiter_name_list) > 1:
         recruiter_name = recruiter_name_list[0]
 
+    # configure name
     new_spiel = recruiter_name + ',\n\n' + spiel
 
+    # find textbox
     text_box_div = browser.find_element_by_class_name('_1xXo9j7wJhYoCN1vk_CNsT')
     text_box = text_box_div.find_element_by_tag_name('textarea')
 
+    # click on and type the message
     text_box.click()
     text_box.send_keys(new_spiel)
 
+    # click submit button
     submit_button = text_box_div.find_element_by_class_name('c-button--blue')
     submit_button.click()
+    time.sleep(2)  # wait for the job to submit
 
-    time.sleep(2)
+    # close the section
     close_section = browser.find_element_by_class_name('_3Aslx7L3GVI4XM7PUyYKza')
     close_button = close_section.find_element_by_class_name('c-button--blue')
     close_button.click()
-    time.sleep(2)
+    time.sleep(2) # wait for it to close
     return recruiter_name
 
 
 def step_through_jobs(browser, spiel_auto, spiel_manual):
+    ''' DOCSTRING
+        This gets and steps through all the _jm elements on the page. It checks
+        to see if an element has the phrase `applicants last week` in it. This
+        makes sure it's a job, and that someone has applied to it. There might
+        be a better way to check this. It also decides which cover letter to
+        send each job. And prints out a thing about the job it applied to.
+        ---------
+        ARGUMENTS
+        browser: a web driver object
+        spiel_auto: The A in you AB testing cover letter
+        spiel_manual: The B in you AB testing cover letter
+        ---------
+        RETURNS
+        None
+    '''
     # get the correct elements
     jms = browser.find_elements_by_class_name('_jm')
     print("number of jm elements: ", len(jms))
@@ -148,6 +225,15 @@ def step_through_jobs(browser, spiel_auto, spiel_manual):
 
 
 def main():
+    ''' DOCSTRING
+        The standard Main function.
+        ---------
+        ARGUMENTS
+        None
+        ---------
+        RETURNS
+        None
+    '''
         spiel_auto, spiel_manual, filtered_html = get_files()
         angel_email_cred, angel_password_cred = get_creds()
 
