@@ -37,6 +37,7 @@ SCROLL_PAUSE_TIME = 1
 # Get scroll height
 last_height = browser.execute_script("return document.body.scrollHeight")
 while True:
+    print('Scrolling...')
     # Scroll down to bottom
     browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     # Wait to load page
@@ -86,13 +87,19 @@ if len(recruiter_name_list) > 1:
 with open('spiel.txt', 'r') as spiel_file:
     spiel = spiel_file.read()
 
-new_spiel = recruiter_name + spiel
+new_spiel = recruiter_name + ',\n\n' + spiel
 
-text_box = browser.find_element_by_tag_name('textarea')
-print(text_box.is_displayed())
-
-browser.execute_script("arguments[0].style.visibility = 'visible';", text_box)
+text_box_div = browser.find_element_by_class_name('_1xXo9j7wJhYoCN1vk_CNsT')
+text_box = text_box_div.find_element_by_tag_name('textarea')
 print(text_box.is_displayed())
 
 text_box.click()
-text_box.send_keys(spiel)
+text_box.send_keys(new_spiel)
+
+submit_button = text_box_div.find_element_by_class_name('c-button--blue')
+submit_button.click()
+
+time.sleep(2)
+close_section = browser.find_element_by_class_name('_3Aslx7L3GVI4XM7PUyYKza')
+close_button = close_section.find_element_by_class_name('c-button--blue')
+close_button.click()

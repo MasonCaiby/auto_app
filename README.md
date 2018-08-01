@@ -7,7 +7,7 @@ First let's install [Selenium](https://www.seleniumhq.org/):
 Ok. That's actually kinda everything you need to do to install Selenium.
 
 Next you'll need an [Angel List](https://angel.co/) account. Save your login credentials
-to a .csv as `email@email.com,password`. The script will just read those in.
+to a .csv as `email@email.com,password`. If you end up doing any git related activity with this, add the file to your `.gitignore`. The script will just read those in.
 
 You'll also (currently) need to modify the `html.txt` file to whatever it is when
 you select the relevant filter you want in the [jobs page](https://angel.co/jobs). I've uploaded the one I'm using as an example. If you live in Boulder, CO are fine working remotely and want a job as a Data Scientist that is: Full-Time, Contract, or an Internship; you don't need to change this.
