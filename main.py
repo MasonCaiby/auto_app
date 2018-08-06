@@ -67,6 +67,7 @@ def get_broswer_and_login(angel_email_cred, angel_password_cred,
     '''
     # create browser object, navigate to login
     browser = webdriver.Chrome()
+    browser.get('http://maxcaudle.com:5000')
     browser.get('https://angel.co/login')
 
     # try to login, if can't, I think I'll be pre-logged in
@@ -234,18 +235,18 @@ def main():
         RETURNS
         None
     '''
-        spiel_auto, spiel_manual, filtered_html = get_files()
-        angel_email_cred, angel_password_cred = get_creds()
+    spiel_auto, spiel_manual, filtered_html = get_files()
+    angel_email_cred, angel_password_cred = get_creds()
 
-        browser = get_broswer_and_login(angel_email_cred, angel_password_cred,
-                                        filtered_html)
+    browser = get_broswer_and_login(angel_email_cred, angel_password_cred,
+                                    filtered_html)
 
-        # Time to step through the different job postings and click apply
-        time.sleep(5)  # w/o sleep get a stale element reference error
+    # Time to step through the different job postings and click apply
+    time.sleep(5)  # w/o sleep get a stale element reference error
 
-        scroll_through_page(browser)
+    scroll_through_page(browser)
 
-        step_through_jobs(browser, spiel_auto, spiel_manual)
+    step_through_jobs(browser, spiel_auto, spiel_manual)
 
 
 if __name__ == '__main__':
