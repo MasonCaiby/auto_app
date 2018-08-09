@@ -192,27 +192,36 @@ def step_through_jobs(browser, spiel_auto, spiel_manual):
 
     number_of_jobs = 1
 
+    jobs_applied = np.genfromtxt('jobs.csv', delimiter=',', dtype=str)
+
     for jm in jms:
         # this is needed to not navigate to a new window
         if 'applicants last week' in jm.text:
-            if number_of_jobs % 2:
-                spiel = spiel_auto
-            else:
-                spiel = spiel_manual
-            jm.click()
-            company_name = jm.find_element_by_class_name('startup-link').text
-            time.sleep(3)
-            apply_now = jm.find_element_by_class_name('apply-now-button')
-            if apply_now.text == 'Apply Now':
-                try:
-                    recruiter_name = apply_to_job(apply_now, spiel, browser)
-                except:
-                    recruiter_name = "Dear Hiring Manager,"
-                print(company_name + ' | ' + str(number_of_jobs) + ' | ' +
-                      recruiter_name)
-                time.sleep(2)
-                number_of_jobs += 1
-
+            try:
+                if number_of_jobs % 2:
+                    spiel = spiel_auto
+                else:
+                    spiel = spiel_manual
+                jm.click()
+                company_name = jm.find_element_by_class_name('startup-link').text.lower()
+                time.sleep(3)
+                apply_now = jm.find_element_by_class_name('apply-now-button')
+                if apply_now.text == 'Apply Now':
+                    if company_name in jobs_applied:
+                        print(company_name, ' has already been applied to, skipping')
+                        continue
+                    try:
+                        recruiter_name = apply_to_job(apply_now, spiel, browser)
+                    except:
+                        recruiter_name = "Dear Hiring Manager,"
+                    print(company_name + ' | ' + str(number_of_jobs) + ' | ' +
+                          recruiter_name)
+                    time.sleep(2)
+                    number_of_jobs += 1
+                    jobs_applied = np.append(jobs_applied, company_name)
+            except:
+                continue
+    np.savetxt('jobs.csv', jobs_applied, delimiter=',', fmt="%s")
     print(number_of_jobs)
 
 
