@@ -67,7 +67,7 @@ def get_broswer_and_login(angel_email_cred, angel_password_cred,
     '''
     # create browser object, navigate to login
     browser = webdriver.Chrome()
-    browser.get('http://maxcaudle.com:5000')
+    browser.get('http://maxcaudle.com')
     browser.get('https://angel.co/login')
 
     # try to login, if can't, I think I'll be pre-logged in
@@ -82,6 +82,8 @@ def get_broswer_and_login(angel_email_cred, angel_password_cred,
         pass
 
     # navigate to the jobs page this loads the relevant filters
+    print(filtered_html)
+    time.sleep(5)
     browser.get(filtered_html)
 
     return browser
